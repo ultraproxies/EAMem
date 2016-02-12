@@ -1,0 +1,37 @@
+The way this works is you write strings here limiting
+them to 60 characters per line.
+
+Normally you wouldn't leave a blank line in this file
+but it helps to make this help/example easier to read.
+
+Line numbers will be associated with each line in this
+file and saved as the record# for later recall within
+the SD card and EEPROMs.
+
+Use a text editor to create your program prompts using
+this file as a guide.
+
+I considered writing an editor to handle all this, but
+decided using a text editor you are familiar with would
+be a better way to handle adding, editing and deleting
+your data.
+
+How many lines you can put in your EDB_SD.txt file
+depends on what EEPROM you intend to use with your
+sketch. If you are using the internal Arduino UNO's
+EEPROM you are limited to 1K or 1024 bytes, so
+1024 / 64 = 16 lines. The AT24C256 EEPROM contains
+256K, or 262144 / 64 = 4096 lines.
+
+At this point the EDB_DB_xxx sketches, scripts and
+programs, currently only work with the SD module,
+Atmega328 internal EEPROM and any of the AT24Cxxx
+external EEPROM modules.
+
+There is an EDB_DB_xxx sketch written specifically for
+the AT24Cxxx modules and the ATmega328. The EDB_EEPROM.ino
+sketch reads this file from the SD card and burns it into
+the ATmega328's internal EEPROM and the
+EDB_EEPROM_AT24Cxxx.ino does the same for the AT24Cxxx
+modules.
+
