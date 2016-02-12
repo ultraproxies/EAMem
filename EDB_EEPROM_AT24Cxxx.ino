@@ -183,6 +183,7 @@
 
 
 File dbFile;              // EDB database on the SD card.
+i2cEEPROM i2c = i2cEEPROM();
 int eepromAddress = 0x52; // Change this from 0x50 to 0x52 when using the RTC DS1307 due to conflict.
 
 // Declaring #define EDB_WriteEEPROM will cause this sketch to burn anything in EDB_SD02.db to EEPROM.
@@ -198,7 +199,7 @@ int eepromAddress = 0x52; // Change this from 0x50 to 0x52 when using the RTC DS
 //#define EDB_ReWriteEEPROM // Burn data in EEPROM, but only writing bytes that need changing, saving wear.
 
 // Uncomment EDB_ReadEEROM If you just want to read what is in the EEPROM table.
-#define EDB_ReadEEPROM  // Defining this will undefine EDB_WriteEEPROM automatically.
+//#define EDB_ReadEEPROM  // Defining this will undefine EDB_WriteEEPROM automatically.
 
 #ifdef EDB_ReadEEPROM
   #ifdef EDB_WriteEEPROM
@@ -248,11 +249,11 @@ byte reader(unsigned long address){
 // EEPROM write proceedure.
 void eeprom_writer(unsigned long address, byte data){
   if( writeEEPROM && !testIt )   {   // Prevent EEPROM burn if testIt is false.
-    //i2c_eeprom_write_byte( eepromAddress, (unsigned int)address,  data ); // Burn byte onto external EEPROM.
-    i2c_eeprom_write_byte( eepromAddress, address, data);
+    //i2c.i2c_eeprom_write_byte( eepromAddress, (unsigned int)address,  data ); // Burn byte onto external EEPROM.
+    i2c.i2c_eeprom_write_byte( eepromAddress, address, data);
    
     delay(2);
-   //byte b = i2c_eeprom_read_byte(eepromAddress, address); //access an address from the memory
+   //byte b = i2c.i2c_eeprom_read_byte(eepromAddress, address); //access an address from the memory
    //   Serial.print((char)b); //print content to serial port
    //   Serial.print(b, HEX);
     
@@ -267,11 +268,11 @@ void eeprom_writer(unsigned long address, byte data){
 
 // EEPROM read function.
 byte eeprom_reader(unsigned long address){
-     byte b = i2c_eeprom_read_byte(eepromAddress, address); //access an address from the memory
+     byte b = i2c.i2c_eeprom_read_byte(eepromAddress, address); //access an address from the memory
      // Serial.print((char)b); //print content to serial port
      // Serial.print(b, HEX);
 
-  return b ;// i2c_eeprom_read_byte(eepromAddress, (unsigned int)address);
+  return b ;// i2c.i2c_eeprom_read_byte(eepromAddress, (unsigned int)address);
 }
 
 // Assign respective read() and write() function addresses for EDB table calls.
